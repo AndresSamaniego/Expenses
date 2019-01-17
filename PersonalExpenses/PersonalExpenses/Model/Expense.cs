@@ -22,7 +22,7 @@ namespace PersonalExpenses.Model
 
         public Expense()
         {
-
+            Date = DateTime.Today;
         }
         
         public bool InsertExpense()
