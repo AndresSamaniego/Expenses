@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PersonalExpenses.ViewModel"
+             xmlns:me="clr-namespace:PersonalExpenses.View.MarkupExtensions"
+             x:Class="PersonalExpenses.View.ExpenseDetailPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:ExpenseDetailVM x:Key="vm"></vm:ExpenseDetailVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.Content>
+        <StackLayout Margin="16,20,16,0"
+                     BindingContext="{StaticResource vm}">
+            <Label Text="{me:Translate ResourceName=nameInfo}"
+                   Style="{StaticResource subtitleLabel}"/>
+            <Label Text="{Binding Expense.Name}"
+                   Style="{StaticResource mainValueLabel}"/>
+            <Label Text="{me:Translate ResourceName=amountInfo}"
+                   Style="{StaticResource subtitleLabel}"/>
+            <Label Text="{Binding Expense.Quantity, StringFormat='{0:c}'}"
+                   Style="{StaticResource mainValueLabel}"/>
+            <Label Text="{me:Translate ResourceName=dateInfo}"
+                   Style="{StaticResource subtitleLabel}"/>
+            <Label Text="{Binding Expense.Date, StringFormat='{0:MM/dd/yyyy}'}"
+                   Style="{StaticResource mainValueLabel}"/>
+            <Label Text="{me:Translate ResourceName=categoryInfo}"
+                   Style="{StaticResource subtitleLabel}"/>
+            <Label Text="{Binding Expense.Category}"
+                   Style="{StaticResource mainValueLabel}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

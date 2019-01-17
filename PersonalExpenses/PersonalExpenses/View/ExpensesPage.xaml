@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PersonalExpenses.ViewModel"
+             xmlns:me="clr-namespace:PersonalExpenses.View.MarkupExtensions"
+             xmlns:converters="clr-namespace:PersonalExpenses.View.ValueConverters"
+             x:Class="PersonalExpenses.View.ExpensesPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:ExpensesVM x:Key="vm"></vm:ExpensesVM>
+            <converters:DateToStringConverter x:Key="dateToStringConverter"></converters:DateToStringConverter>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{me:Translate ResourceName=newButton}"
+                     Command="{Binding Source={StaticResource vm}, Path=NewExpenseCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ListView x:Name="expensesListView"
+              BindingContext="{StaticResource vm}"
+              ItemsSource="{Binding Expenses}"
+              SelectedItem="{Binding SelectedExpense, Mode=TwoWay}"
+              IsPullToRefreshEnabled="True"
+              RefreshCommand="{Binding RefreshExpensesCommand}"
+              IsRefreshing="{Binding IsRefreshing}">
+        <ListView.ItemTemplate>
+            <DataTemplate>
+                <TextCell Text="{Binding Name}"
+                          Detail="{Binding Date, Converter={StaticResource dateToStringConverter}}"
+                          StyleId="purple"
+                          TextColor="OrangeRed">
+                    <TextCell.ContextActions>
+                        <MenuItem Text="Borrar"
+                                  IsDestructive="true"
+                                  Command="{Binding Source={StaticResource vm}, Path=DeleteExpenseCommand}"
+                                  CommandParameter="{Binding}"/>
+                    </TextCell.ContextActions>
+                </TextCell>
+            </DataTemplate>
+        </ListView.ItemTemplate>
+    </ListView>
+</ContentPage>

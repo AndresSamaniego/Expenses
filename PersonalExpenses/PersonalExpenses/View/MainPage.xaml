@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
+            xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+            xmlns:views="clr-namespace:PersonalExpenses.View"
+            xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:me="clr-namespace:PersonalExpenses.View.MarkupExtensions"
+            android:TabbedPage.ToolbarPlacement="Bottom"
+            x:Class="PersonalExpenses.View.MainPage"
+            BarBackgroundColor="{StaticResource mainColor}"
+            BarTextColor="White"
+            android:TabbedPage.BarSelectedItemColor="White">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal"
+                     HorizontalOptions="Center">
+            <Image HeightRequest="{OnPlatform iOS=20, Android=35}"
+                   Source="wallet"></Image>
+            <Label Text="{me:Translate ResourceName=appTitle}"
+                   TextColor="{OnPlatform iOS=Black, Android=White}"
+                   FontSize="{OnPlatform iOS=17, Android=18}"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
+
+    <views:CategoriesPage Title="{me:Translate ResourceName=categoryTab}"
+                          Icon="categorias"/>
+    <views:ExpensesPage Title="{me:Translate ResourceName=expenseTab}"
+                        Icon="expenses"/>
+</TabbedPage>

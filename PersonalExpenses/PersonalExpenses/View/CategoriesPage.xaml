@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PersonalExpenses.ViewModel"
+             xmlns:me="clr-namespace:PersonalExpenses.View.MarkupExtensions"
+             x:Class="PersonalExpenses.View.CategoriesPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:CateogriesVM x:Key="vm"></vm:CateogriesVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Orientation="Horizontal"
+                         BindingContext="{StaticResource vm}">
+                <Label x:Name="titleLabel" 
+                   Text="{me:Translate ResourceName=categoryTitle}"
+                   FontSize="30"
+                   FontAttributes="Bold">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="OrientationStates">
+                            <VisualState Name="Portrait">
+                                <VisualState.Setters>
+                                    <Setter Property="IsVisible" Value="True"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Landscape">
+                                <VisualState.Setters>
+                                    <Setter Property="IsVisible" Value="False"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" Value="Gray"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </Label>
+                <ImageButton Source="share"
+                             BackgroundColor="Transparent"
+                             HeightRequest="40"
+                             WidthRequest="40"
+                             Command="{Binding ShareCommand}"
+                             CommandParameter="{Binding HasProgresses}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup Name="CommonStates">
+                            <VisualState Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value="1"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Scale" Value=".8"/>
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </ImageButton>
+            </StackLayout>
+            <ListView ItemsSource="{Binding Source={StaticResource vm}, Path=Progresses}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell StyleId="purple">
+                            <StackLayout  Margin="16,0">
+                                <Label Text="{Binding Name}"/>
+                                <ProgressBar Progress="{Binding ProgressValue}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

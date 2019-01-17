@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PersonalExpenses.ViewModel"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:me="clr-namespace:PersonalExpenses.View.MarkupExtensions"
+             ios:Page.UseSafeArea="True"
+             x:Class="PersonalExpenses.View.NewExpensePage">
+    
+    
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <vm:NewExpenseVM x:Key="vm"></vm:NewExpenseVM>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="{me:Translate ResourceName=saveButton}"
+                     Command="{Binding Source={StaticResource vm}, Path=SaveExpenseCommand}"/>
+    </ContentPage.ToolbarItems>
+
+    <ContentPage.Content>
+        <StackLayout Margin="16,20,16,0"
+                     BindingContext="{StaticResource vm}">
+            <Label Text="{me:Translate ResourceName=namePrompt}"
+                   Style="{StaticResource subtitleLabel}"/>
+            <Entry Placeholder="{me:Translate ResourceName=namePlaceholder}"
+                   Text="{Binding Name, Mode=TwoWay}"/>
+            <Label Text="{me:Translate ResourceName=amountPrompt}"
+                   Style="{StaticResource subtitleLabel}"/>
+            <Entry Placeholder="100" 
+                   Keyboard="Numeric"
+                   Text="{Binding Quantity, Mode=TwoWay}"/>
+            <Label Text="{me:Translate ResourceName=datePrompt}"
+                   Style="{StaticResource subtitleLabel}"/>
+            <DatePicker Date="{Binding Date, Mode=TwoWay}"/>
+            <Label Text="{me:Translate ResourceName=categoryPrompt}"
+                   Style="{StaticResource subtitleLabel}"/>
+            <Picker ItemsSource="{Binding Categories}"
+                    SelectedItem="{Binding Category, Mode=TwoWay}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
